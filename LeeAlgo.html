@@ -1,0 +1,80 @@
+<html>
+<body>
+<script>
+ 
+function Lee_point(p, q)
+{
+  this.p = p;
+  this.q = q;
+}
+function Queue_Nodes(x , distance)
+{
+  this.x = x;
+  this.distance = distance;
+}
+let M = [
+  {x: 0, y: 1},
+  {x: -1, y: 0},
+  {x: 0, y: -1},
+  {x: 1, y: 0}
+];
+function Bfs(Mt, s, d)
+{
+  var m_dis = -1;
+    if (Mt[s.p][s.q] != 1 || Mt[d.p][d.q] != 1)
+      return m_dis;
+  var m = Mt.length;
+  var n = Mt[0].length;
+  Visit = [];
+  for (var a = 0; a < m; a++) 
+  {
+    Visit.push([]);
+    for (var b = 0; b < n; b++)
+    {
+      Visit[a].push(false);
+    }
+  }
+  var QueueQ = [];
+  var u = new Queue_Nodes(s, 0);
+  QueueQ.push(u);
+  while (QueueQ.length>0) 
+  {
+    var i = QueueQ.pop();
+    var x = i.x;
+    if (x.p == d.p && x.q == d.q)
+      return i.d;
+    for (var a = 0; a < 4; a++)
+    {
+      var r = x.p + M[a].p;
+      var c = x.q + M[a].q;
+      if (valid(Mt, Visit, m, n, r, c)) 
+      {
+        Visit[r][c] = true;
+        var adj_Cells = new Queue_Nodes(new Lee_point(r, c), i.distance + 1);
+        QueueQ.push(adj_Cells);
+      }
+    }
+  }
+  return m_dis;
+}
+function valid(Mt, Visit, W, H, r, c)
+{
+  return (r >= 0) && (r < W) && (c >= 0) && (c < H) && Mt[r][c] == 1 && !Visit[r][c];
+}
+
+let Mt = [
+  [ 1, 1, 0, 1, 1 ,1],
+  [ 1, 0, 1, 0, 1 ,0], 
+  [ 1, 1, 0, 0, 1 ,1], 
+  [ 0, 1, 0, 0, 1 ,1], 
+  [ 1, 1, 1, 0, 0 ,1]];
+var Src = new Lee_point(0, 0);
+var d = new Lee_point(4, 5);
+var distance = Bfs(Mt, Src, d);
+if (distance != -1)
+  document.write(`Shortest path of the matrix from(${Src.p}, ${Src.q}) to (${d.p}, ${d.q})  ${distance}\n`);
+else
+  document.write(`Shortest path of the matrix ${(Src.p, Src.q)} to ${(d.p, d.q)} not exist`);
+</script>
+</body>
+</html>  
