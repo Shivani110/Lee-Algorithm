@@ -3,7 +3,7 @@ from collections import deque
 r = [1, 0, 0, -1]
 c = [0, 1, -1, 0]
 
-def isValid(M, Visit, r, c):
+def V(M, Visit, r, c):
     return (r >= 0) and (r < len(M)) and (c >= 0) and (c < len(M[0])) \
            and M[r][c] == 1 and not Visit[r][c]
 
@@ -28,7 +28,7 @@ def Shortpath(M, s, d):
             min_d = d
             break
         for v in range(4):
-            if isValid(M, Visit, p + r[v], q + c[v]):
+            if V(M, Visit, p + r[v], q + c[v]):
                 Visit[p + r[v]][q + c[v]] = True
                 u.append((p + r[v], q + c[v], d + 1))
 
