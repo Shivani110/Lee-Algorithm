@@ -14,7 +14,7 @@ struct queue_Nodes
 	Lee_Point x; 
 	int distance; 
 };
-bool isValid(int r, int c)
+bool V(int r, int c)
 {
 	return (r >= 0) && (r < Rc) &&
 		(c >= 0) && (c < Cc);
@@ -48,7 +48,7 @@ int Bfs(int M[][Cc], Lee_Point s, Lee_Point d)
 			int r = x.p + no_of_row[m];
 			int c = x.q + no_of_col[m];
 			
-			if (isValid(r, c) && M[r][c] &&
+			if (V(r, c) && M[r][c] &&
 			!Visit[r][c])
 			{
 				Visit[r][c] = true;
